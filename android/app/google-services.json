@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1058125658111",
+    "project_id": "labe-scanner-1302",
+    "storage_bucket": "labe-scanner-1302.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058125658111:android:07a398871a7a792a5099ca",
+        "android_client_info": {
+          "package_name": "com.example.label_scanner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfZn9bYpZkan4VZTTwHIuMs7INsGwBANY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
