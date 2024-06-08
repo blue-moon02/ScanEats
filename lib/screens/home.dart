@@ -4,6 +4,8 @@ import 'package:label_scanner/authentication/authentication.dart';
 import 'package:label_scanner/authentication/login.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart'; // Import for scanning
 import 'package:label_scanner/screens/scan_product_screen.dart'; 
+import 'package:label_scanner/screens/browse_sacnned_products.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -58,9 +60,10 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       title: const Text('Label Scanner', style: TextStyle(color:Color.fromARGB(255, 255, 255, 255) ,fontSize: 24, fontWeight: FontWeight.w400)),
-        backgroundColor:  Colors.deepPurple ,
-        toolbarHeight: 45,
+      
+       title: const Text('  Label Scanner', style: TextStyle(color:Color.fromARGB(167, 0, 0, 0) ,fontSize: 22, fontWeight: FontWeight.w500)),
+        backgroundColor: Colors.deepPurple ,
+        automaticallyImplyLeading: true,
         actions: [
           TextButton(
             onPressed: () {
@@ -70,10 +73,12 @@ class _HomeState extends State<Home> {
                         context,
                         MaterialPageRoute(builder: (contex) => const Login()),
                       ));
+
             },
-            child: const Text("Log Out", style: TextStyle(color: Colors.white),),
+            child: const Text("Log Out", style: TextStyle(color: Colors.white, fontSize:16),),
           ),
         ],
+        toolbarHeight: 50,
       ),
      body: Center(
         child: Column(
@@ -121,23 +126,6 @@ class _HomeState extends State<Home> {
         ],
       ),
 
-    );
-  }
-}
-
-// Example browse screen (replace with your actual implementation)
-class BrowseScannedProductsScreen extends StatelessWidget {
-  const BrowseScannedProductsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-    appBar: AppBar(
-        title: const Text('Browse Scanned Products', style: TextStyle(fontSize: 21)),
-      ),  
-      body: const Center(
-        child: Text('Your scanned products will be listed here.'),
-      ),
     );
   }
 }
