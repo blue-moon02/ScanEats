@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:label_scanner/firebase_options.dart';
 import 'authentication/login.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Label Scanner',
       home: Login(),
+    
     );
   }
 }
-

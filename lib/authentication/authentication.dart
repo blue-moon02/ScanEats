@@ -8,18 +8,6 @@ class AuthenticationHelper {
 
   get user => _auth.currentUser;
 
-//SIGN UP METHOD
-  // Future<String?> signUp({required String email, required String password}) async {
-  //   try {
-  //     await _auth.createUserWithEmailAndPassword(
-  //       email: email,
-  //       password: password,
-  //     );
-  //     return null;
-  //   } on FirebaseAuthException catch (e) {
-  //     return e.message;
-  //   }
-  // }
   Future<String?> signUp(
       {required String email,
       required String password,

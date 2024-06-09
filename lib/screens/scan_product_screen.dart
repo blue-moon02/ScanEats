@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:label_scanner/screens/browse_sacnned_products.dart';
 import 'package:label_scanner/screens/home.dart';
+ // Import for image compression
 
 class ScanProductScreen extends StatefulWidget {
   final String ean;
@@ -32,6 +34,37 @@ class _ScanProductScreenState extends State<ScanProductScreen> {
       }
     });
   }
+  // Future<void> _pickImage(ImageSource source, bool isBarcode) async {
+  //   final pickedFile = await ImagePicker().pickImage(source: source);
+  //   if (pickedFile != null) {
+  //     // Compress the image before setting it to the state
+  //     final compressedFile = await _compressImage(File(pickedFile.path));
+  //     setState(() {
+  //       if (isBarcode) {
+  //         _barcodeImage = compressedFile;
+  //       } else {
+  //         _ingredientsImage = compressedFile;
+  //       }
+  //     });
+  //   }
+  // }
+
+  // Future<File?> _compressImage(File file) async {
+  //   try {
+  //     var result = await FlutterImageCompress.compressAndGetFile(
+  //       file.absolute.path,
+  //       file.absolute.path.replaceAll('.jpg', '_compressed.jpg'), // Example: Save compressed image with a different name
+  //       quality: 85,  
+  //     );
+  //     if (result != null) {
+  //       return File(result.path); //Convert XFile to File
+  //     }
+  //     return null;
+  //   }catch (e) {
+  //     debugPrint('Error compressing image: $e');
+  //     return null;
+  //   }
+  // }
 
   Future<void> _saveProductDetails() async {
     if (_barcodeImage == null || _ingredientsImage == null) {
@@ -78,7 +111,7 @@ class _ScanProductScreenState extends State<ScanProductScreen> {
       if (!mounted) return;
 
       // Navigate back to Home screen
-      Navigator.pushReplacement(
+      Navigator.pop(
           context, MaterialPageRoute(builder: (context) => const Home()));
     } catch (e) {
       if (!mounted) return;
@@ -158,6 +191,29 @@ class _ScanProductScreenState extends State<ScanProductScreen> {
             ),
           if (_isLoading)
             const Center(child: CircularProgressIndicator()),
+        ],
+      ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0, // This sets the initial selected tab to "Scan Product"
+        onTap: (index) {
+          if (index == 1) {
+            // Navigate to Browse Scanned Products screen
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const BrowseScannedProductsScreen()), // Replace with your actual screen
+            );
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.qr_code_scanner),
+            label: 'Scan Product',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Browse',
+          ),
         ],
       ),
     );
