@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:label_scanner/screens/home.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+// import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class ScanProductScreen extends StatefulWidget {
   final String ean;
@@ -22,25 +24,59 @@ class _ScanProductScreenState extends State<ScanProductScreen> {
 
   Future<void> _pickImage(ImageSource source, bool isBarcode) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
-    setState(() {
-      if (pickedFile != null) {
-        if (isBarcode) {
-          _barcodeImage = File(pickedFile.path);
+
+    if (pickedFile != null) {
+      if (isBarcode) {
+        final barcode = await _scanBarcode(File(pickedFile.path)); // Call _scanBarcode instead of scanner.analyzeImage
+        if (barcode != null) {
+          setState(() {
+            _barcodeImage = File(pickedFile.path);
+          });
         } else {
-          _ingredientsImage = File(pickedFile.path);
+          // No barcode detected - show error message
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Please upload a barcode image or try taking a clear picture')),
+          );
         }
+      } else {
+        // Ingredients image - no validation needed
+        setState(() {
+          _ingredientsImage = File(pickedFile.path);
+        });
       }
-    });
+    }
   }
+
+  Future<Barcode?> _scanBarcode(File imageFile) async {
+    final MobileScannerController controller = MobileScannerController();
+
+    try {
+      final barcode = await controller.analyzeImage(imageFile.path);
+
+      if (barcode != null && barcode.barcodes.isNotEmpty) { // Added null checks here
+        // Return the first barcode found (you can add logic to choose the best one if needed)
+        return barcode.barcodes[0];
+      }
+    } catch (e) {
+      debugPrint('Error scanning barcode from image: $e');
+    } finally {
+      controller.dispose(); // Dispose the controller in the finally block
+    }
+
+    return null; // No valid EAN found
+  }
+  
+
 
   Future<void> _saveProductDetails() async {
     if (_barcodeImage == null || _ingredientsImage == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select and upload images')),
+        const SnackBar(content: Text('Please select and upload the images')),
       );
       return;
     }
-
+  
     setState(() {
       _isLoading = true;
     });

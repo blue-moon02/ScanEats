@@ -107,14 +107,71 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 title:
                                     Text('Ingredients: ${_product!.ingredientsText}'),
                               ),
-                            // ...Add more fields as needed (nutrients, etc.)
+                            ListTile(
+                              title: Text(
+                                  'Product Quantity: ${_product!.quantity?? "Unknown"}',),
+                            ),
+                            ListTile(
+                              title: Text(
+                                  'Category: ${_product!.categories?? "Unknown"}',),
+                            ),
+                            ListTile(
+                              title: Text(
+                                  'NutriScore: ${_product!.nutriscore?.toUpperCase() ?? "Unknown"}',
+                                style: TextStyle(
+                                fontWeight: FontWeight.bold,),
+                               ),
+                            ),
+                          if (_product!.nutriments != null) ...[
+                      const Divider(),
+                      Text(
+                        'Nutrients per 100g:',
+                        style: TextStyle(fontSize:15 ,fontWeight: FontWeight.bold),
+                      ),
+                      ListTile(
+                        title: Text(
+                            'Energy (kcal): ${_product!.nutriments!.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams)?.toStringAsFixed(0) ?? "N/A"}'),
+                            
+                      ),
+                      ListTile(
+                        title: Text(
+                            'Fat: ${_product!.nutriments!.getValue(Nutrient.fat, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "N/A"} g'),
+                      ),
+                      ListTile(
+                        title: Text(
+                            'Saturated Fat: ${_product!.nutriments!.getValue(Nutrient.saturatedFat, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "N/A"} g'),
+                      ),
+                      ListTile(
+                        title: Text(
+                            'Carbohydrates: ${_product!.nutriments!.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "N/A"} g'),
+                      ),
+                      ListTile(
+                        title: Text(
+                            'Sugars: ${_product!.nutriments!.getValue(Nutrient.sugars, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "N/A"} g'),
+                      ),
+                      ListTile(
+                        title: Text(
+                            'Protein: ${_product!.nutriments!.getValue(Nutrient.proteins, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "N/A"} g'),
+                      ),
+                      ListTile(
+                        title: Text(
+                            'Salt: ${_product!.nutriments!.getValue(Nutrient.salt, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "N/A"} g'),
+                      ),
+                    ],
+                    if (_product!.additives!.names != []) ...[
+                      const Divider(),
+                      Text('Additives:',
+                          style: TextStyle(fontSize:15 ,fontWeight: FontWeight.bold)),
+                      Text(_product!.additives?.names.join(', ') ?? 'N/A'),
+
+                    ],
                           ],
                         ],
                       ),
                     ),
                   ),
                   const SizedBox(height: 30),
-                  Text('Barcode Image :',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                  Text('Barcode Image :',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                   Hero(
                     tag: 'barcodeImage-${widget.productData['ean']}',
                     child: CachedNetworkImage(
@@ -125,7 +182,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                   
                   const SizedBox(height: 30),
-                  Text('Ingedients Image :',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500), ),
+                  Text('Ingedients Image :',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), ),
                   Hero(
                     tag: 'ingredientsImage-${widget.productData['ean']}',
                     child: CachedNetworkImage(

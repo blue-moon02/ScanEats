@@ -11,23 +11,25 @@ class Signup extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: <Widget>[
-          const SizedBox(height: 80),
+          const SizedBox(height: 70),
           // logo
           Column(
             children: [
               Image.asset(
                 'assets/icon.png',  
-                width: MediaQuery.of(context).size.width * 0.2,                    // Adjust height as needed
+                width: 120, 
+                height: 120,                   // Adjust height as needed
               ),
-                        const SizedBox(height: 40),
+                       
             ],
           ),
-          const SizedBox(height: 50),
+          const SizedBox(height: 30),
           const Text(
-            'Welcome!',
-            style: TextStyle(fontSize: 24),
+            '   Welcome!',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
           ),
-
+          const SizedBox(height: 5),
+          
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: SignupForm(),
