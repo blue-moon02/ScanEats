@@ -69,8 +69,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       appBar: AppBar(
         title: Text(_product?.productName ?? 'Product Details'),
       ),
-      body:
-           SingleChildScrollView(
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,29 +92,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                           
                           const SizedBox(height: 8), // Add some spacing
                           Text('EAN: ${widget.productData['ean']}', style: const TextStyle(fontSize:16),),
                           Text(
                             'Scanned on: ${widget.productData['scanDate'].toDate()}',
                             style: TextStyle(color: Colors.grey[600]), // Slightly de-emphasize
                           ),
-                          _isLoading
-                            ? Center( // Center both the progress indicator and text
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  CircularProgressIndicator(),
-                                  SizedBox(height: 10), // Add spacing between indicator and text
-                                  Text('Fetching more product details...'),
-                                ],
-                              ),
-                            ):
                           const Divider(), // Add a divider for clarity
                           // Data from Open Food Facts (if available)
-                          
                           if (_product != null) ...[
-                            
                             ListTile(
                               title: Text(
                                   'Product Name: ${_product!.productName?? "Unknown"}'),

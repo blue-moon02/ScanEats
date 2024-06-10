@@ -73,6 +73,7 @@ class _HomeState extends State<Home> {
                         context,
                         MaterialPageRoute(builder: (contex) => const Login()),
                       ));
+
             },
             child: const Text("Log Out", style: TextStyle(color: Colors.white, fontSize:16),),
           ),
@@ -124,6 +125,7 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
+
     );
   }
 }

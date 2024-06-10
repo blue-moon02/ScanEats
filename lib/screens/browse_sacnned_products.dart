@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:label_scanner/screens/home.dart';
 import 'package:label_scanner/screens/product_details_screen.dart'; 
 
 
@@ -65,28 +64,7 @@ class _BrowseScannedProductsScreenState extends State<BrowseScannedProductsScree
           );
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 1, // This sets the initial selected tab to "Scan Product"
-          onTap: (index) {
-            if (index == 0) {
-              // Navigate to Browse Scanned Products screen
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Home()), // Replace with your actual screen
-              );
-            }
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.qr_code_scanner),
-              label: 'Scan Product',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.list),
-              label: 'Browse',
-            ),
-          ],
-        ),
+
     );
   }
 }
