@@ -14,13 +14,15 @@ class Login extends StatelessWidget {
         children: <Widget>[
           const SizedBox(height: 80),
           // logo
-          const Column(
+          Column(
             children: [
-              FlutterLogo(
-                size: 55,
+              Image.asset(
+                'assets/icon.png',  // Replace with your actual image path
+                width: 100,                       // Adjust width as needed
+                height: 100,                     // Adjust height as needed
               ),
-              SizedBox(height: 50),
-              Text(
+                        const SizedBox(height: 40),
+              const Text(
                 'Welcome back!',
                 style: TextStyle(fontSize: 24),
               ),

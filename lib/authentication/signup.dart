@@ -13,11 +13,13 @@ class Signup extends StatelessWidget {
         children: <Widget>[
           const SizedBox(height: 80),
           // logo
-          const Column(
+          Column(
             children: [
-              FlutterLogo(
-                size: 55,
+              Image.asset(
+                'assets/icon.png',  
+                width: MediaQuery.of(context).size.width * 0.2,                    // Adjust height as needed
               ),
+                        const SizedBox(height: 40),
             ],
           ),
           const SizedBox(height: 50),

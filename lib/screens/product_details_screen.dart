@@ -32,46 +32,37 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         fields: [ProductField.ALL],
         version: ProductQueryVersion.v3,
       );
-
       final ProductResultV3 result = await OpenFoodAPIClient.getProductV3(configuration);
-  
 
-      // Handle potential errors
       if (result.status != ProductResultV3.statusSuccess || result.product == null) {
-        throw Exception('Failed to fetch product details');
+        throw Exception('Failed to fetch product details'); // Handling potential errors
       }
 
       setState(() {
         _product = result.product;
         _isLoading = false;
       });
-    } catch (e) {
+    } 
+
+    catch (e) {
       debugPrint('Error fetching more product details: $e');
-
-      
       if (!mounted) return;
-
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Failed to fetch more product details')),
       );
-
-      
-      if (!mounted) return;
-
       setState(() {
         _isLoading = false;
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(_product?.productName ?? 'Product Details'),
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
+      body: SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,6 +89,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             'Scanned on: ${widget.productData['scanDate'].toDate()}',
                             style: TextStyle(color: Colors.grey[600]), // Slightly de-emphasize
                           ),
+                          _isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : 
                           const Divider(), // Add a divider for clarity
                           // Data from Open Food Facts (if available)
                           if (_product != null) ...[
