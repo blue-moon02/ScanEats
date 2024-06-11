@@ -8,58 +8,65 @@ class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: <Widget>[
-          const SizedBox(height: 70),
-          // logo
-          Column(
-            children: [
-              Image.asset(
-                'assets/icon.png',  
-                width: 120, 
-                height: 120,                   // Adjust height as needed
+      body: SafeArea(  // Wrap the content with SafeArea
+        child: SingleChildScrollView( // Add SingleChildScrollView for scrolling
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start, // Align to the start
+            children: <Widget>[
+              const SizedBox(height: 70),
+              Column( // Logo widget
+                children: [
+                  Image.asset(
+                    'assets/icon.png',  
+                    width: 120,                       
+                    height: 120,                     
+                  ),
+                ],
               ),
-                       
+              const SizedBox(height: 30),
+              const Text(
+                'Welcome!',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 5),
+              
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: SignupForm(), 
+              ),
+
+              // Wrap the bottom section in an Expanded widget
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter, // Align to bottom
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const Text(
+                        'Signed Up?',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          ' Get Logged in Now!',
+                          style: TextStyle(fontSize: 18, color: Colors.blue),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
-          const SizedBox(height: 30),
-          const Text(
-            '   Welcome!',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-          ),
-          const SizedBox(height: 5),
-          
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: SignupForm(),
-          ),
-
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    const Text('Signed Up?',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16)),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text(' Get Logged in Now!',
-                          style: TextStyle(fontSize: 18, color: Colors.blue)),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
+}
 
   Container buildLogo() {
     return Container(
@@ -76,7 +83,7 @@ class Signup extends StatelessWidget {
       ),
     );
   }
-}
+
 
 class SignupForm extends StatefulWidget {
   const SignupForm({super.key});
@@ -106,13 +113,14 @@ class _SignupFormState extends State<SignupForm> {
     );
 
     var space = const SizedBox(height: 10);
-    return Form(
+    return 
+    Form(
       key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          // email
-          TextFormField(
+          Focus(// email
+          child: TextFormField(
             decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.email_outlined),
                 labelText: 'Email',
@@ -128,7 +136,7 @@ class _SignupFormState extends State<SignupForm> {
             },
             keyboardType: TextInputType.emailAddress,
           ),
-
+      ),
           space,
 
           // password
@@ -257,8 +265,7 @@ class _SignupFormState extends State<SignupForm> {
               style: ElevatedButton.styleFrom(
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(24.0)))),
-              child: const Text('Sign Up'),
-              
+              child: const Text('Sign Up'), 
             ),
           ),
         ],
