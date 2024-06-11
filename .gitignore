@@ -50,6 +50,8 @@ app.*.map.json
 *.ipa
 # macOS build artifacts
 /macos/Build/
+/macOS
+
 
 # Firebase (Important)
 # Exclude sensitive configuration files
@@ -58,6 +60,7 @@ app.*.map.json
 /android/app/google-services.json
 /ios/Runner/GoogleService-Info.plist
 /lib/firebase_options.dart
+/firebase.json
 # Environment Variables
 .env* 
 
